@@ -37,6 +37,14 @@ run/
 # PDT-specific
 .buildpath
 
+#################
+## IntelliJ IDEA
+#################
+.iml
+.ipr
+.iws
+.idea/
+
 
 #################
 ## Visual Studio
