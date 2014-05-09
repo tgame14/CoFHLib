@@ -41,7 +41,7 @@ public class InventoryStorage implements IInventoryStorage
                 ItemStack stack = items.get(i);
                 if (stack != null)
                 {
-                    if (stack.isItemEqual(candidate) && stack.getTagCompound().equals(candidate.getTagCompound()))
+                    if (isItemStackIdentical(stack, candidate))
                     {
                         int prevSize = stack.stackSize;
                         int candidateAccess = Math.min(stack.stackSize + candidate.stackSize, stack.getMaxStackSize());
@@ -72,7 +72,7 @@ public class InventoryStorage implements IInventoryStorage
             for (int i = 0; i < items.size(); i++)
             {
                 ItemStack stack = items.get(i);
-                if (stack != null && stack.isItemEqual(candidate) && stack.getTagCompound().equals(candidate.getTagCompound()))
+                if (isItemStackIdentical(stack, candidate))
                 {
                     int prevSize = stack.stackSize;
                     int candidateAccess = Math.max(stack.stackSize - candidate.stackSize, 0);
@@ -148,7 +148,7 @@ public class InventoryStorage implements IInventoryStorage
 
             if (items.get(i).stackSize < items.get(i).getMaxStackSize())
             {
-                return true;
+                return false;
             }
 
         }
@@ -198,5 +198,10 @@ public class InventoryStorage implements IInventoryStorage
     {
         items.retainAll(getInventoryContents());
         items.ensureCapacity(getSizeInventory());
+    }
+
+    private static boolean isItemStackIdentical(ItemStack stack1, ItemStack stack2)
+    {
+            return stack1.isItemEqual(stack2) ? (stack1.hasTagCompound() && stack2.hasTagCompound() ? stack1.getTagCompound().equals(stack2.getTagCompound()) : true) : false;
     }
 }
