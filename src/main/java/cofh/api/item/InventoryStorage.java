@@ -41,7 +41,7 @@ public class InventoryStorage implements IInventoryStorage
                 ItemStack stack = items.get(i);
                 if (stack != null)
                 {
-                    if (stack.isItemEqual(candidate))
+                    if (stack.isItemEqual(candidate) && stack.getTagCompound().equals(candidate.getTagCompound()))
                     {
                         int prevSize = stack.stackSize;
                         int candidateAccess = Math.min(stack.stackSize + candidate.stackSize, stack.getMaxStackSize());
@@ -72,7 +72,7 @@ public class InventoryStorage implements IInventoryStorage
             for (int i = 0; i < items.size(); i++)
             {
                 ItemStack stack = items.get(i);
-                if (stack != null && stack.isItemEqual(candidate))
+                if (stack != null && stack.isItemEqual(candidate) && stack.getTagCompound().equals(candidate.getTagCompound()))
                 {
                     int prevSize = stack.stackSize;
                     int candidateAccess = Math.max(stack.stackSize - candidate.stackSize, 0);
